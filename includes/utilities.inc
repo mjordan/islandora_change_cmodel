@@ -16,7 +16,6 @@
 function islandora_change_cmodel_change_cmodel($form_state) {
   $pid = $form_state['values']['pid'];
   $new_cmodel = $form_state['values']['islandora_change_cmodel_target_cmodel'];
-
   $object = islandora_object_load($pid);
   $models = $object->models;
   // How many content models does this object have?
@@ -29,7 +28,12 @@ function islandora_change_cmodel_change_cmodel($form_state) {
     return FALSE;
   }
 
-  // First delete the existing hasModel relationship, then add the new hasModel.
+  // @todo: Wrap these two operations in a try block.
+  // First add the new content model relationship.
+  $object->relationships->add(FEDORA_MODEL_URI, 'hasModel', $new_cmodel);
+
+  // Then delete the existing hasModel relationship, then add the new hasModel.
+  $object->relationships->remove(FEDORA_MODEL_URI, 'hasModel', $models[0]);
 
   // During development, return TRUE.
   return TRUE;
@@ -65,4 +69,22 @@ select $object $label from <#ri>
     }
   }
   return $cmodels;
+}
+
+/**
+ * Checks to see if the current object has any of the allowed content models.
+ *
+ * @return array
+ *   An array containing the content models that the object has that are allowed.
+ */
+function islandora_change_cmodel_check_for_cmodels($object) {
+  $object_models = $object->models;
+  $allowed_models = variable_get('islandora_change_cmodel_allowed_cmodels', array());
+  $allowed_models_filtered = array();
+  foreach ($allowed_models as $key => $value) {
+    if ($value != '0') {
+      $allowed_models_filtered[] = $value;
+    }
+  }
+  return array_intersect($object_models, $allowed_models_filtered);
 }
