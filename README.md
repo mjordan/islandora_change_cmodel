@@ -28,6 +28,15 @@ Users must have the 'Change Islandora Content Models' permission provided by thi
 
 ## Usage
 
+To do: Add screenshots of UI
+
+Standard workflow is:
+
+1. Use the UI to change an object's content model.
+1. If necessary, replace the OBJ with a file that is consistent with the new content model.
+1. Regenerate derivatives for the object.
+1. If desired, delete any unwanted datastreams.
+
 
 ## Extending/customizing this module
 
