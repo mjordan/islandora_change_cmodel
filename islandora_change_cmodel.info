@@ -1,0 +1,9 @@
+name = Islandora Change Cmodel 
+description = "Provides a user interface for changing an object's content model."
+package = Islandora Tools
+version = 7.x-dev
+core = 7.x
+php = 5.3
+dependencies[] = islandora
+; files[] = includes/utilities.inc
+; files[] = includes/confirm.form.inc
