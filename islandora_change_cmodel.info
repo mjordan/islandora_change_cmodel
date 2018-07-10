@@ -5,5 +5,5 @@ version = 7.x-dev
 core = 7.x
 php = 5.3
 dependencies[] = islandora
-; files[] = includes/utilities.inc
-; files[] = includes/confirm.form.inc
+files[] = includes/utilities.inc
+files[] = includes/change_model.form.inc

@@ -23,27 +23,40 @@ function islandora_change_cmodel_menu() {
   $items['islandora/object/%islandora_object/change_cmodel'] = array(
     'title' => 'Change content model',
     'page callback' => 'drupal_get_form',
-    'page arguments' => array('islandora_change_cmodel_confirm_form'),
-    'file' => 'includes/confirm.form.inc',
+    'page arguments' => array('islandora_change_cmodel_change_model_form'),
+    'file' => 'includes/change_model.form.inc',
     'type' => MENU_CALLBACK,
     'access callback' => 'islandora_change_cmodel_access_callback',
     'access arguments' => array(
       array(
         ISLANDORA_MANAGE_PROPERTIES,
-        ISLANDORA_METADATA_EDIT,
         ISLANDORA_ADD_DS,
-        ISLANDORA_PURGE,
-        ISLANDORA_INGEST,
+        ISLANDORA_REGENERATE_DERIVATIVES,
+        ISLANDORA_REPLACE_DATASTREAM_CONTENT,
+        'change Islandora object cmodel',
       ), 2),
   );
   return $items;
 }
 
 /**
+ * Implements hook_permission().
+ */
+function islandora_change_cmodel_permission() {
+  return array(
+    'change Islandora object cmodels' => array(
+      'title' => t('Change Islandora Content Models'),
+      'description' => t('Change Islandora object content model'),
+    ),
+  );
+}
+
+/**
  * Implements hook_form_alter().
  */
-function islandora_change_cmodel_form_alter(&$form, &$form_state, $form_id) {
-  if ($form_id == 'islandora_object_properties_form') {
+function islandora_change_cmodel_form_islandora_object_properties_form_alter(&$form, &$form_state) {
+  $object = islandora_object_load($form_state['object']);
+  if (islandora_user_access($object, array('change Islandora object cmodels'))) {
     $form['change_cmodel'] = array(
       '#type' => 'submit',
       '#value' => t("Change content model"),
@@ -80,7 +93,7 @@ function islandora_change_cmodel_access_callback($perms, $object = NULL) {
   }
   $intersection = array_intersect($object_models, $allowed_models_filtered);
 
-  if (islandora_object_manage_access_callback($perms, $object) && count($intersection) > 0) {
+  if (islandora_user_access($object, array('change Islandora object cmodels')) && islandora_object_manage_access_callback($perms, $object) && count($intersection) > 0) {
     return TRUE;
   }
 }

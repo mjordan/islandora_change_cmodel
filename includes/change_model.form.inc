@@ -16,20 +16,19 @@
  * @return array
  *   The drupal form definition.
  */
-function islandora_change_cmodel_confirm_form(array $form, array &$form_state) {
+function islandora_change_cmodel_change_model_form(array $form, array &$form_state) {
   module_load_include('inc', 'islandora_change_cmodel', 'includes/utilities');
   $object = menu_get_object('islandora_object', 2);
-
   $form['islandora_change_cmodel_confirm_message'] = array(
-    '#markup' => t('You are about to change content model for "' . check_plain($object->label) . '".'),
+    '#markup' => t('You are about to change content model for "' . check_plain($object->label) . '". You <strong>will not be prompted</strong> to confirm this action.'),
   );
-
   $cmodels = islandora_change_cmodel_get_cmodels();
   $form['islandora_change_cmodel_target_cmodel'] = array(
     '#type' => 'select',
      '#title' => t('New content model'),
      '#options' => $cmodels,
   );
+  $form['pid'] = array('#type' => 'value', '#value' => $object->id);
   $form['submit'] = array(
     '#type' => 'submit',
     '#value' => t('Submit')
@@ -46,11 +45,10 @@ function islandora_change_cmodel_confirm_form(array $form, array &$form_state) {
  * @param array $form_state
  *   The drupal form state.
  */
-function islandora_change_cmodel_confirm_form_submit(array $form, array &$form_state) {
+function islandora_change_cmodel_change_model_form_submit(array $form, array &$form_state) {
   module_load_include('inc', 'islandora_change_cmodel', 'includes/utilities');
-  $source_pid = $form_state['values']['islandora_change_cmodel_source_pid'];
-  if ($pid = islandora_change_cmodel_change_cmodel($form_state)) {
-    drupal_set_message(t("Object @clone_pid cloned from @source_pid.", array('@clone_pid' => $pid, '@source_pid' => $source_pid)));
-    drupal_goto('islandora/object/' . $pid);
+  if (islandora_change_cmodel_change_cmodel($form_state)) {
+    drupal_set_message(t("You should regenerate this object's datastreams, and ensure that all datastreams required by the new content model are present."));
+    drupal_goto('islandora/object/' . $form_state['values']['pid'] . '/manage/properties');
   }
 }

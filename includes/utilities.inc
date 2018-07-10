@@ -6,45 +6,33 @@
  */
 
 /**
- * Ingests a new Islandora object based on the source object.
- *
- * We can't perform a dumb 'clone' of the object because the owner may be
- * different, and the createdDate will certainly be different. So, we will
- * need to copy the properties of the source object and ingest the new
- * object using them; we'll also need to iterate over the source object's
- * datastreams and ingest the new version of each of those as well.
- *
- * We do not copy RELS-EXT or RELS-INT since they are rebuilt using
- * relationships.
  *
  * @param array $form_state
  *   The $form_state from the submitted confirmation form.
  *
- * @return string
- *   The PID of the cloned object.
+ * @return bool
+ *   Whether or not the operation was successful.
  */
 function islandora_change_cmodel_change_cmodel($form_state) {
-  $source_pid = $form_state['values']['islandora_object_clone_source_pid'];
+  $pid = $form_state['values']['pid'];
+  $new_cmodel = $form_state['values']['islandora_change_cmodel_target_cmodel'];
 
-  $source_object = islandora_object_load($source_pid);
-
-  // Let's talk relationships. Copy them all (except for collection
-  // relationships) from the source to the new object.
-  foreach ($source_object->relationships->get() as $rel) {
-    if ($rel['predicate']['value'] != 'isMemberOfCollection') {
-      $obj->relationships->add(
-        $rel['predicate']['namespace'],
-        $rel['predicate']['value'],
-        $rel['object']['value']
-      );
-    }
+  $object = islandora_object_load($pid);
+  $models = $object->models;
+  // How many content models does this object have?
+  // First, remove the Fedora system model.
+  if (($key = array_search('fedora-system:FedoraObject-3.0', $models)) !== FALSE) {
+    unset($models[$key]);
   }
-  // Define collection relationships based on form input values.
-  foreach ($confirmed_collections as $collection) {
-    $obj->relationships->add(FEDORA_RELS_EXT_URI, 'isMemberOfCollection', $collection);
+  if (count($models) > 1) {
+    drupal_set_message("Sorry, this object has more than one content model so we can't complete this operation.", 'warning');
+    return FALSE;
   }
 
-  return $new_object->id;
+  // First delete the existing hasModel relationship, then add the new hasModel.
+
+  // During development, return TRUE.
+  return TRUE;
 }
 
 /**
