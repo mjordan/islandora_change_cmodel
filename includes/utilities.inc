@@ -103,3 +103,10 @@ function islandora_change_cmodel_check_for_cmodels($object) {
   }
   return array_intersect($object_models, $allowed_models_filtered);
 }
+
+/**
+ * Redirect user to content model change form.
+ */
+function islandora_change_cmodel_show_confirm_form($form, $form_state) {
+  drupal_goto("islandora/object/{$form_state['object']}/change_cmodel");
+}
