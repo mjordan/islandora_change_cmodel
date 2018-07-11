@@ -75,7 +75,7 @@ function islandora_change_cmodel_show_confirm_form($form, $form_state) {
 }
 
 /**
- * Checks whether the user can access an object's "Change content model" button.
+ * Checks whether the user can access an object's "Change content model" form.
  *
  * @param array $perms
  *   Array of user permission to test for.
@@ -84,7 +84,7 @@ function islandora_change_cmodel_show_confirm_form($form, $form_state) {
  *   inaccessible.
  *
  * @return bool
- *   TRUE if the user is allowed to access this object, FALSE otherwise.
+ *   TRUE if the user is allowed to access the form, FALSE otherwise.
  */
 function islandora_change_cmodel_access_callback($perms, $object = NULL) {
   module_load_include('inc', 'islandora_change_cmodel', 'includes/utilities');
