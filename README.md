@@ -25,13 +25,13 @@ Users must have the 'Change Islandora Content Models' permission provided by thi
 
 ## Usage
 
-Sufficiently privileged users will see a fourth button in each object's "Properties" subtab:
+Sufficiently privileged users will see a fourth button, "Change content model", in each object's "Properties" subtab:
 
 ![Change content model button](images/change_cmodel_button.png)
 
 Clicking on this button will reveal a form where the user chooses the new content model. If successful, the user is presented with a message saying so and telling them what to do next, e.g.:
 
-> Content model changed to islandora:sp_large_image_cmodel. You should regenerate this object's datastreams, and ensure that all datastreams required by the new content model are present.
+> Content model changed to islandora:sp_large_image_cmodel. You should replace this object's OJB datastream, if necessary, and regenerate its derivatives.
 
 The standard workflow for using this module is:
 

@@ -48,7 +48,7 @@ function islandora_change_cmodel_change_model_form(array $form, array &$form_sta
 function islandora_change_cmodel_change_model_form_submit(array $form, array &$form_state) {
   module_load_include('inc', 'islandora_change_cmodel', 'includes/utilities');
   if (islandora_change_cmodel_change_cmodel($form_state)) {
-    drupal_set_message(t("Content model changed to %new_model. You should regenerate this object's datastreams, and ensure that all datastreams required by the new content model are present.", array('%new_model' => $form_state['values']['islandora_change_cmodel_target_cmodel'])));
+    drupal_set_message(t("Content model changed to %new_model. You should replace this object's OJB datastream, if necessary, and regenerate its derivatives.", array('%new_model' => $form_state['values']['islandora_change_cmodel_target_cmodel'])));
     drupal_goto('islandora/object/' . $form_state['values']['pid'] . '/manage/properties');
   }
 }
