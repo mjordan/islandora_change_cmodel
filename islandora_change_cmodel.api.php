@@ -19,6 +19,6 @@ function mymodule_islandora_change_cmodel_cmodel_changed($pid, $old_cmodel, $new
     drupal_set_message(t("All members of this collection are no longer 'in' the collection."));
   }
 
-  // You could loop through all the member objects and remove the relationship with the
-  // collection with $pid, for example.
+  // You could loop through all the member objects and remove the relationship
+  // with the collection with $pid, for example.
 }

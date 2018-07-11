@@ -6,6 +6,7 @@
  */
 
 /**
+ * Form submit callback.
  *
  * @param array $form_state
  *   The $form_state from the submitted confirmation form.
@@ -83,7 +84,8 @@ select $object $label from <#ri>
  * Checks to see if the current object has any of the allowed content models.
  *
  * @return array
- *   An array containing the content models that the object has that are allowed.
+ *   An array containing the content models that the object has that
+ *   are allowed.
  */
 function islandora_change_cmodel_check_for_cmodels($object) {
   $object_models = $object->models;

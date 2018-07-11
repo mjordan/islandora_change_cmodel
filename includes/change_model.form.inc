@@ -20,18 +20,18 @@ function islandora_change_cmodel_change_model_form(array $form, array &$form_sta
   module_load_include('inc', 'islandora_change_cmodel', 'includes/utilities');
   $object = menu_get_object('islandora_object', 2);
   $form['islandora_change_cmodel_confirm_message'] = array(
-    '#markup' => t('You are about to change content model for "' . check_plain($object->label) . '". You <strong>will not be prompted</strong> to confirm this action.'),
+    '#markup' => t('You are about to change content model for "!label". You <strong>will not be prompted</strong> to confirm this action.', array('!label' => $object->label)),
   );
   $cmodels = islandora_change_cmodel_get_cmodels();
   $form['islandora_change_cmodel_target_cmodel'] = array(
     '#type' => 'select',
-     '#title' => t('New content model'),
-     '#options' => $cmodels,
+    '#title' => t('New content model'),
+    '#options' => $cmodels,
   );
   $form['pid'] = array('#type' => 'value', '#value' => $object->id);
   $form['submit'] = array(
     '#type' => 'submit',
-    '#value' => t('Submit')
+    '#value' => t('Submit'),
   );
 
   return $form;
