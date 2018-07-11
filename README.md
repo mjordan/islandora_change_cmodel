@@ -2,9 +2,9 @@
 
 ## Introduction
 
-This module provides the ability for a sufficiently privileged user to change an object's content model, retaining all of its existing properties and datastreams. The only thing that changes is the 'hasModel' relationship in the object's RELS-EXT datastream. Usin this module to change a content model does not validate the existence of datastreams required by the new content model, and does not remove any datastreams from the object. The user is responsible to managing the datastreams (although third-party modules can implement hooks to do this if they wish; see below for more information).
+This module provides the ability for a sufficiently privileged user to change an object's content model, retaining all of its existing properties and datastreams. The only thing that changes is the 'hasModel' relationship in the object's RELS-EXT datastream. Using this module to change a content model does not validate the existence of datastreams required by the new content model, and does not remove any datastreams from the object. The user is responsible to managing and updating objects' datastreams, although third-party modules can implement hooks to do this if they wish; see below for more information.
 
-Even though the effects of changing an object's content model are usually minor (but see the note about collection and compound objects below), changing a content model should be an uncommon event, only necessary when deleting an object and replacing it with one of a different content model is suboptimal.
+Even though the effects of changing an object's content model are usually minor (but see the note about collection and compound objects below), changing a content model should be an uncommon event, only necessary when deleting an object and replacing it with one of a different content model is suboptimal. Use this module with caution.
 
 ## Requirements
 
