@@ -2,11 +2,11 @@
 
 /**
  * @file
- * Handles the uploading of the XML object file as part of the ingest process.
+ * Form definition and submission functions.
  */
 
 /**
- * Defines a file upload form for uploading the XML file.
+ * Defines a form for changing an object's content model.
  *
  * @param array $form
  *   The drupal form.
@@ -38,7 +38,7 @@ function islandora_change_cmodel_change_model_form(array $form, array &$form_sta
 }
 
 /**
- * Addes the uploaded file into the ingestable objects 'OBJ' datastream.
+ * Form submit function.
  *
  * @param array $form
  *   The drupal form.

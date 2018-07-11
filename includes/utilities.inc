@@ -2,7 +2,7 @@
 
 /**
  * @file
- * Utility functions used by the Islandora Object Clone module.
+ * Utility functions used by the Islandora Change Cmodel module.
  */
 
 /**

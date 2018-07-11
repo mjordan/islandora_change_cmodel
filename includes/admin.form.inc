@@ -2,7 +2,7 @@
 
 /**
  * @file
- * The admin form for the Islandora Object Clone module.
+ * The admin form for the Islandora Change Cmodel module.
  */
 
 /**
