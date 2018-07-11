@@ -33,7 +33,7 @@ function islandora_change_cmodel_menu() {
         ISLANDORA_ADD_DS,
         ISLANDORA_REGENERATE_DERIVATIVES,
         ISLANDORA_REPLACE_DATASTREAM_CONTENT,
-        'change Islandora object cmodel',
+        'change Islandora object cmodels',
       ), 2),
   );
   return $items;
