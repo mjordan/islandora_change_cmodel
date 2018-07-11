@@ -35,6 +35,11 @@ function islandora_change_cmodel_change_cmodel($form_state) {
     return FALSE;
   }
 
+  $prechange_results = module_invoke_all('islandora_change_cmodel_prechange', $pid, $models[0], $new_cmodel);
+  if (in_array(FALSE, $prechange_results)) {
+    return FALSE;
+  }
+
   try {
     // First add the new content model relationship.
     $object->relationships->add(FEDORA_MODEL_URI, 'hasModel', $new_cmodel);
