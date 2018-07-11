@@ -46,6 +46,8 @@ The standard workflow for using this module is:
 
 One of the unintended impacts that will occur if you change the content model of an object that has children or members (for example, objects with compound or collection content models), is that the way the parent behaves in relation to the children will change. For example, changing the content model of a collection object will break the collection's browse list. Its children are not orphaned, since their RELS-EXTs still contain the relationship with their former parent, but the Basic Collection Solution Pack no longer treats the parent as a collection object and produce a browse list using those relationships. Changing the content model of the parent back to Islandora Collection Content Model will restore the collection browse list. In general, an object's content model can be changed back to its original with no side effects, but if you regenerate derivatives after changing an object's content model, you will need to manually replace (or revert) the OBJ and regenerate derivatives again.
 
+It would be wise to prepare a collection's members _prior_ to changing the content model of the parent collection object by migrating the members to another collection first. That way, the member objects' RELS-EXTs will contain only the relationship with the new collection. Migrating them via Islandora's user interface will remove the relationship with the collection object whose content model is subsequently being changed.
+
 ## Extending/customizing this module
 
 See the `islandora_change_cmodel.api.php` file for hooks this module defines.
