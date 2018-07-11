@@ -75,7 +75,7 @@ function islandora_change_cmodel_show_confirm_form($form, $form_state) {
 }
 
 /**
- * Checks whether the user can access the given object's 'Clone' tab.
+ * Checks whether the user can access an object's "Change content model" button.
  *
  * @param array $perms
  *   Array of user permission to test for.

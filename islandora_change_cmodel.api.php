@@ -20,7 +20,9 @@
 function mymodule_islandora_change_cmodel_prechange($pid, $old_cmodel, $new_cmodel) {
   global $user;
   if ($user->name == 'rusty' && $pid == 'islandora:100') {
-    drupal_set_message("Rusty, I forbid you from changing this node's content model", 'error');
+    // If a module blocks a content model change, it should issue
+    // a drupal_set_message() informing the user why.
+    drupal_set_message("Rusty, you're not allowed to change this node's content model", 'error');
     return FALSE;
   }
   else {
@@ -41,9 +43,9 @@ function mymodule_islandora_change_cmodel_prechange($pid, $old_cmodel, $new_cmod
  */
 function mymodule_islandora_change_cmodel_cmodel_changed($pid, $old_cmodel, $new_cmodel) {
   if ($old_cmodel == 'islandora:collectionCModel') {
-    drupal_set_message(t("All members of this collection are no longer 'in' the collection."));
+    // You could loop through all the member objects and remove the relationship
+    // with the collection with $pid, but in this example, we just share some
+    // information with the user.
+    drupal_set_message(t("This former 'collection' doesn't provide a browse any more!"));
   }
-
-  // You could loop through all the member objects and remove the relationship
-  // with the collection with $pid, for example.
 }
