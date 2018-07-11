@@ -39,6 +39,7 @@ function islandora_change_cmodel_change_cmodel($form_state) {
     $object->relationships->add(FEDORA_MODEL_URI, 'hasModel', $new_cmodel);
     // Then delete the existing hasModel relationship.
     $object->relationships->remove(FEDORA_MODEL_URI, 'hasModel', $models[0]);
+    module_invoke_all('islandora_change_cmodel_cmodel_changed', $pid, $models[0], $new_cmodel);
     return TRUE;
   }
   catch (Exception $e) {
