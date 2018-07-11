@@ -2,9 +2,9 @@
 
 ## Introduction
 
-This module provides the ability for a user to change an object's content model, retaining all of its existing properties and datastreams. The only thing that changes is the `hasModel` relationship in the object's RELS-EXT datastream. Using this module to change a content model does not validate the existence of datastreams required by the new content model, does not remove any datastreams from the object, and does not check to see if the new content model is allowed in the object's parent collection. _The user is responsible for all these tasks, although third-party modules can implement hooks to perform them.
+This module provides the ability for a user to change an object's content model, retaining all of its existing properties and datastreams. The only thing that changes is the `hasModel` relationship in the object's RELS-EXT datastream. Using this module to change a content model does not validate the existence of datastreams required by the new content model, does not remove any datastreams from the object, and does not check to see if the new content model is allowed in the object's parent collection. _The user is responsible for all these tasks_, although third-party modules can implement hooks to perform them.
 
-Even though changing the content model of most objects has no unintended impact after its derivatives have been regenerated (but see the note about collection and compound objects below), changing a content model should be an uncommon event, only necessary when deleting an object and replacing it with one of a different content model is suboptimal (e.g., you want to retain the object's PID). However, you should use this module with caution. Since the RELS-EXT is a datastream, other modules that implement hooks listening for changes to the RELS-EXT datastream may initiate processes that have unpredictable or unwanted effects.
+Even though changing the content model of most objects has no unintended impact after its derivatives have been regenerated (but see the note about collection and compound objects below), changing a content model should be an uncommon event. The intended purpose of this module is to avoid deleting an object and replacing it with one of a different content model, for example, when you want to retain the object's PID. You should use this module with caution. Since the RELS-EXT is a datastream, other modules that implement hooks listening for changes to the RELS-EXT datastream may initiate processes that have unpredictable or unwanted effects.
 
 ## Requirements
 
@@ -31,7 +31,7 @@ Sufficiently privileged users will see a fourth button, "Change content model", 
 
 ![Change content model button](images/change_cmodel_button.png)
 
-Clicking on this button will reveal a form where the user chooses the new content model. After choosing the new content model, the user is presented with a message suggesting what to do next, e.g.:
+Clicking on this button will reveal a form where the user chooses the new content model. After choosing the new content model, the user is presented with a confirmation message suggesting what to do next, e.g.:
 
 > Content model changed to _islandora:sp_large_image_cmodel_. You should replace this object's OBJ datastream, if necessary, and regenerate its derivatives.
 
@@ -44,7 +44,7 @@ The standard workflow for using this module is:
 
 ## Changing the content model of objects that have children or members
 
-One of the "unintended impacts" that will occur if you change the content model of an object that has children or members (for example, objects with compound or collection content models), is that the way the parent behaves in relation to the children will change. For example, changing the content model of a collection object will break the collection's browse list. Its children are not orphaned since their RELS-EXTs still contain the relationship with their former parent, but the Basic Collection Solution Pack no longer treats the parent as a collection object. Changing the content model of the parent back to Islandora Collection Content Model will recreate the collection browse list. In general, an object's content model can be changed back to its original with no side effects, but if you regenerate derivatives after changing an object's content model, you will need to manually replace (or revert) the OBJ and regenerate derivatives again.
+One of the unintended impacts that will occur if you change the content model of an object that has children or members (for example, objects with compound or collection content models), is that the way the parent behaves in relation to the children will change. For example, changing the content model of a collection object will break the collection's browse list. Its children are not orphaned, since their RELS-EXTs still contain the relationship with their former parent, but the Basic Collection Solution Pack no longer treats the parent as a collection object and produce a browse list using those relationships. Changing the content model of the parent back to Islandora Collection Content Model will restore the collection browse list. In general, an object's content model can be changed back to its original with no side effects, but if you regenerate derivatives after changing an object's content model, you will need to manually replace (or revert) the OBJ and regenerate derivatives again.
 
 ## Extending/customizing this module
 
