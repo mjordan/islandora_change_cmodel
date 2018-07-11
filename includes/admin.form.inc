@@ -34,7 +34,7 @@ function islandora_change_cmodel_admin_form(array $form, array &$form_state) {
     '#type' => 'checkboxes',
     '#options' => $cmodels,
     '#default_value' => variable_get('islandora_change_cmodel_allowed_cmodels', array()),
-    '#description' => t("The Change content model tab will only show up for objects with the selected content models."),
+    '#description' => t("The 'Change content model' button will only show up for objects with the selected content models."),
   );
 
   return system_settings_form($form);

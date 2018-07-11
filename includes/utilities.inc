@@ -24,19 +24,26 @@ function islandora_change_cmodel_change_cmodel($form_state) {
     unset($models[$key]);
   }
   if (count($models) > 1) {
-    drupal_set_message("Sorry, this object has more than one content model so we can't complete this operation.", 'warning');
+    drupal_set_message(t("Sorry, this object has more than one content model so we can't complete this operation."), 'warning');
     return FALSE;
   }
 
-  // @todo: Wrap these two operations in a try block.
-  // First add the new content model relationship.
-  $object->relationships->add(FEDORA_MODEL_URI, 'hasModel', $new_cmodel);
+  if ($new_cmodel == $models[0]) {
+    drupal_set_message(t("You have chosen to change this object's content model to the one it already has, %cmodel.",
+      array('%cmodel' => $new_cmodel)), 'error');
+    return FALSE;
+  }
 
-  // Then delete the existing hasModel relationship, then add the new hasModel.
-  $object->relationships->remove(FEDORA_MODEL_URI, 'hasModel', $models[0]);
-
-  // During development, return TRUE.
-  return TRUE;
+  try {
+    // First add the new content model relationship.
+    $object->relationships->add(FEDORA_MODEL_URI, 'hasModel', $new_cmodel);
+    // Then delete the existing hasModel relationship.
+    $object->relationships->remove(FEDORA_MODEL_URI, 'hasModel', $models[0]);
+    return TRUE;
+  }
+  catch (Exception $e) {
+    drupal_set_message(t('Unable to change content model: %e', array('%e' => $e->getMessage())), 'error');
+  }
 }
 
 /**

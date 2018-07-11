@@ -1,10 +1,8 @@
-# Islandora Change Content Models
-
-> Note: This module is still in early development. Do not use it.
+# Islandora Change Content Model
 
 ## Introduction
 
-This module provides the ability for a sufficiently privilegded user to change an object's content model, retaining all of its existing properties and datastreams. It does not validate the existence of datastreams required by the new content model, and does not remove any datastreams from the object. The user is responsible to managing the datastreams (although third-party modules can implement hooks to do this if they wish; see below for more information).
+This module provides the ability for a sufficiently privileged user to change an object's content model, retaining all of its existing properties and datastreams. The only thing that changes is the 'hasModel' relationship in the object's RELS-EXT datastream. Usin this module to change a content model does not validate the existence of datastreams required by the new content model, and does not remove any datastreams from the object. The user is responsible to managing the datastreams (although third-party modules can implement hooks to do this if they wish; see below for more information).
 
 ## Requirements
 
@@ -25,18 +23,24 @@ Users must have the 'Change Islandora Content Models' permission provided by thi
 * Regenerate derivatives
 * Replace datastreams
 
-
 ## Usage
 
-To do: Add screenshots of UI
+Sufficiently privileged users will see a fourth button in each object's "Properties" subtab:
 
-Standard workflow is:
+![Change content model button](images/change_cmodel_button.png)
 
-1. Use the UI to change an object's content model.
-1. If necessary, replace the OBJ with a file that is consistent with the new content model.
+Clicking on this button will reveal a form where the user chooses the new content model. If successful, the user is presented with a message saying so and telling them what to do next, e.g.:
+
+> Content model changed to islandora:sp_large_image_cmodel. You should regenerate this object's datastreams, and ensure that all datastreams required by the new content model are present.
+
+The standard workflow for using this module is:
+
+1. Use the UI to change an object's content model as described above.
+1. If necessary, replace the OBJ with a file that is consistent with the new content model. This is an important step since the OBJ determines what derivatives are regenerated.
 1. Regenerate derivatives for the object.
 1. If desired, delete any unwanted datastreams.
 
+Note that if you change the content model of an object that has children or members (for example, compound or collection content models), the children are not affected. Changing the content model of their parent back to what it was will recreate the collection browse, compound display, etc. In general, an object's content model can be changed back to its original with no severe side effects, but if you regenerate derivatives after changing an object's content model, you will need to manually replace the OBJ and regenerate derivatives again.
 
 ## Extending/customizing this module
 
