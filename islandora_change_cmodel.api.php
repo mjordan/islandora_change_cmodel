@@ -22,7 +22,7 @@ function mymodule_islandora_change_cmodel_prechange($pid, $old_cmodel, $new_cmod
   if ($user->name == 'rusty' && $pid == 'islandora:100') {
     // If a module blocks a content model change, it should issue
     // a drupal_set_message() informing the user why.
-    drupal_set_message("Rusty, you're not allowed to change this node's content model", 'error');
+    drupal_set_message("Rusty, you're not allowed to change this object's content model", 'error');
     return FALSE;
   }
   else {

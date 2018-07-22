@@ -33,6 +33,9 @@ function islandora_change_cmodel_change_model_form(array $form, array &$form_sta
     '#type' => 'submit',
     '#value' => t('Submit'),
   );
+  $form['cancel'] = array(
+    '#markup' => l(t('Cancel'), url('islandora/object/' . $object->id . '/manage')),
+  );
 
   return $form;
 }
