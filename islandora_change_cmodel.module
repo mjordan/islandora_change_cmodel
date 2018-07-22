@@ -20,7 +20,7 @@ function islandora_change_cmodel_menu() {
     'type' => MENU_NORMAL_ITEM,
   );
 
-  $items['islandora/object/%islandora_object/change_cmodel'] = array(
+  $items['islandora/object/%islandora_object/manage/change_cmodel'] = array(
     'title' => 'Change content model',
     'page callback' => 'drupal_get_form',
     'page arguments' => array('islandora_change_cmodel_change_model_form'),

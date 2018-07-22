@@ -108,5 +108,5 @@ function islandora_change_cmodel_check_for_cmodels($object) {
  * Redirect user to content model change form.
  */
 function islandora_change_cmodel_show_confirm_form($form, $form_state) {
-  drupal_goto("islandora/object/{$form_state['object']}/change_cmodel");
+  drupal_goto("islandora/object/{$form_state['object']}/manage/change_cmodel");
 }
